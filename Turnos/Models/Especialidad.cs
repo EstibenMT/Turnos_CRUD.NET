@@ -8,7 +8,7 @@ namespace Turnos.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string? Descripccion { get; set; }
+        public string? Descripcion { get; set; }
 
 
     }

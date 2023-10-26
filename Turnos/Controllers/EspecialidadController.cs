@@ -67,10 +67,17 @@ namespace Turnos.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
+
             var especialidad = _context.Especialidades.Find(id);
-            _context.Especialidades.Remove(especialidad);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+
+            if (especialidad != null)
+            {
+                _context.Especialidades.Remove(especialidad);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+
+            }
+            return View(especialidad);
         }
     }
 }

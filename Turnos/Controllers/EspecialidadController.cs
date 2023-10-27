@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Turnos.Models;
+
 
 namespace Turnos.Controllers
 {
@@ -10,18 +12,21 @@ namespace Turnos.Controllers
         { 
             _context = context;
         }
-        public IActionResult Index()
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Especialidades.ToList());
+            return View(await _context.Especialidades.ToListAsync());
         }
 
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var especialidad = _context.Especialidades.Find(id);
+            var especialidad =await _context.Especialidades.FindAsync(id);
 
             if(especialidad == null)
             {
@@ -30,8 +35,9 @@ namespace Turnos.Controllers
             }
             return View(especialidad);
         }
+
         [HttpPost]
-        public IActionResult Edit(int id, [Bind("Id, Descripccion")] Especialidad especialidad)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Descripcion")] Especialidad especialidad)
         {
             if (id != especialidad.Id)
             {
@@ -41,20 +47,21 @@ namespace Turnos.Controllers
             if(ModelState.IsValid)
             {
                 _context.Update(especialidad);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(especialidad);   
         }
 
-        public IActionResult Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var especialidad = _context.Especialidades.FirstOrDefault(e => e.Id == id);
+            var especialidad = await _context.Especialidades.FirstOrDefaultAsync(e => e.Id == id);
 
             if (especialidad == null)
             {
@@ -65,7 +72,7 @@ namespace Turnos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
             var especialidad = _context.Especialidades.Find(id);
@@ -73,9 +80,27 @@ namespace Turnos.Controllers
             if (especialidad != null)
             {
                 _context.Especialidades.Remove(especialidad);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
+            }
+            return View(especialidad);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        { 
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Descripcion")] Especialidad especialidad)
+        {
+            if (ModelState.IsValid)
+            { 
+                _context.Add(especialidad);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(especialidad);
         }

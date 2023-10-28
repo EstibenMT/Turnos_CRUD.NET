@@ -7,7 +7,7 @@ namespace Turnos.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int IdEspecialidad { get; set; }
         public string? Descripcion { get; set; }
 
 

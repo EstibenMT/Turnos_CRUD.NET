@@ -1,11 +1,11 @@
 ﻿@model Turnos.Models.Especialidad
 
-<h4>Especialidad</h4>
+<h4>Especialidades</h4>
 
 <div>
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly"></div>
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="IdEspecialidad" />
         <div>
             <label asp-for="Descripcion"></label>
             <input asp-for="Descripcion" />

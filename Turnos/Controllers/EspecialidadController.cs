@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Turnos.Models;
 
-
 namespace Turnos.Controllers
 {
     public class EspecialidadController : Controller

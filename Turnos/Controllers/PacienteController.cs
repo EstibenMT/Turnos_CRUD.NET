@@ -30,7 +30,7 @@ namespace Turnos.Controllers
 
             if (paciente == null)
             { 
-                NotFound();
+                return NotFound();
             }
             return View(paciente);
 
@@ -63,7 +63,7 @@ namespace Turnos.Controllers
             }
             var paciente = await _Context.Pacientes.FindAsync(id);
 
-            if (ModelState.IsValid)
+            if (paciente==null)
             {
                 return NotFound();
             }
@@ -98,8 +98,8 @@ namespace Turnos.Controllers
             }
             var paciente = await _Context.Pacientes.FirstOrDefaultAsync(p => p.IdPaciente == id);
             if (ModelState.IsValid)
-            { 
-
+            {
+                return RedirectToAction(nameof(Delete));
             }
             return View(paciente);
         }

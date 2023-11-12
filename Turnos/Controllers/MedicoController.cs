@@ -18,23 +18,21 @@ namespace Turnos.Controllers
             _context = context;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Index()
         {
-              return _context.Medico != null ? 
-                          View(await _context.Medico.ToListAsync()) :
+              return _context.Medicos != null ? 
+                          View(await _context.Medicos.ToListAsync()) :
                           Problem("Entity set 'TurnosContext.Medico'  is null.");
         }
 
-        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Medico == null)
+            if (id == null || _context.Medicos == null)
             {
                 return NotFound();
             }
 
-            var medico = await _context.Medico
+            var medico = await _context.Medicos
                 .FirstOrDefaultAsync(m => m.IdMedico == id);
             if (medico == null)
             {
@@ -44,7 +42,6 @@ namespace Turnos.Controllers
             return View(medico);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -52,7 +49,7 @@ namespace Turnos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMedico,Name,Apelido,Direccion,Telefono,HorarioAtencionDesde,HorarioAtencionHasta")] Medico medico)
+        public async Task<IActionResult> Create([Bind("IdMedico,Name,Apellido,Direccion,Telefono,Email,HorarioAtencionDesde,HorarioAtencionHasta")] Medico medico)
         {
             if (ModelState.IsValid)
             {
@@ -63,15 +60,14 @@ namespace Turnos.Controllers
             return View(medico);
         }
 
-        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Medico == null)
+            if (id == null || _context.Medicos == null)
             {
                 return NotFound();
             }
 
-            var medico = await _context.Medico.FindAsync(id);
+            var medico = await _context.Medicos.FindAsync(id);
             if (medico == null)
             {
                 return NotFound();
@@ -79,9 +75,10 @@ namespace Turnos.Controllers
             return View(medico);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMedico,Name,Apelido,Direccion,Telefono,HorarioAtencionDesde,HorarioAtencionHasta")] Medico medico)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMedico,Name,Apellido,Direccion,Telefono,Email,HorarioAtencionDesde,HorarioAtencionHasta")] Medico medico)
         {
             if (id != medico.IdMedico)
             {
@@ -111,15 +108,14 @@ namespace Turnos.Controllers
             return View(medico);
         }
 
-        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Medico == null)
+            if (id == null || _context.Medicos == null)
             {
                 return NotFound();
             }
 
-            var medico = await _context.Medico
+            var medico = await _context.Medicos
                 .FirstOrDefaultAsync(m => m.IdMedico == id);
             if (medico == null)
             {
@@ -133,14 +129,14 @@ namespace Turnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Medico == null)
+            if (_context.Medicos == null)
             {
                 return Problem("Entity set 'TurnosContext.Medico'  is null.");
             }
-            var medico = await _context.Medico.FindAsync(id);
+            var medico = await _context.Medicos.FindAsync(id);
             if (medico != null)
             {
-                _context.Medico.Remove(medico);
+                _context.Medicos.Remove(medico);
             }
             
             await _context.SaveChangesAsync();
@@ -149,7 +145,7 @@ namespace Turnos.Controllers
 
         private bool MedicoExists(int id)
         {
-          return (_context.Medico?.Any(e => e.IdMedico == id)).GetValueOrDefault();
+          return (_context.Medicos?.Any(e => e.IdMedico == id)).GetValueOrDefault();
         }
     }
 }

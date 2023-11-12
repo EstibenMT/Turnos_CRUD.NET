@@ -1,6 +1,8 @@
 ﻿
 @model IEnumerable<Turnos.Models.Especialidad>
 
+
+<h4>Especialidades</h4>
 <p>
     <a asp-action="Create">Crear especialidad</a>
 </p>
@@ -17,15 +19,15 @@
         @*Aqui colocamos mas adelante los registros de la db*@
         @foreach(var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdEspecialidad">Editar</a>
+                <a asp-action="Delete" asp-route-id="@item.IdEspecialidad">Eliminar</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

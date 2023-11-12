@@ -1,0 +1,39 @@
+﻿@model Turnos.Models.Paciente
+<h4>Pacientes</h4>
+
+<div>
+    <form asp-action="Create"> @*Esta etiqueta se utiliza para crear el formulario*@
+        <div asp-validation-summary=ModelOnly></div> @*asp-validation-summary se utiliza para validar los campos del formulario*@
+        <div>
+            <label asp-for="Nombre"></label> @*La etiqueta label se utiliza para crear una descripccion del campo*@
+            <input asp-for="Nombre" />@*La etuqueta input se utiliza para crear el campo de entrada que resivira el atributo*@
+            <span asp-validation-for="Nombre"></span>@*La etiqueta span indica que el campo "Nombre" es obligatorio.*@
+        </div>
+        <div>
+            <label asp-for="Apellido"></label>
+            <input asp-for="Apellido" />
+            <span asp-validation-for="Apellido"></span>
+        </div>
+        <div>
+            <label asp-for="Direccion"></label>
+            <input asp-for="Direccion" />
+            <span asp-validation-for="Direccion"></span>
+        </div>
+        <div>
+            <label asp-for="Telefono"></label>
+            <input asp-for="Telefono" />
+            <span asp-validation-for="Telefono"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <input type="submit" value="Guardar" />
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>

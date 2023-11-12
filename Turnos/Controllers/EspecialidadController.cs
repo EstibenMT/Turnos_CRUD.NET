@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Turnos.Models;
 
-
 namespace Turnos.Controllers
 {
     public class EspecialidadController : Controller
@@ -37,9 +36,10 @@ namespace Turnos.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, Descripcion")] Especialidad especialidad)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("IdEspecialidad, Descripcion")] Especialidad especialidad)
         {
-            if (id != especialidad.Id)
+            if (id != especialidad.IdEspecialidad)
             {
                 return NotFound();
             }
@@ -61,7 +61,7 @@ namespace Turnos.Controllers
                 return NotFound();
             }
 
-            var especialidad = await _context.Especialidades.FirstOrDefaultAsync(e => e.Id == id);
+            var especialidad = await _context.Especialidades.FirstOrDefaultAsync(e => e.IdEspecialidad == id);
 
             if (especialidad == null)
             {
@@ -72,6 +72,7 @@ namespace Turnos.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
 
@@ -94,6 +95,7 @@ namespace Turnos.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Descripcion")] Especialidad especialidad)
         {
             if (ModelState.IsValid)

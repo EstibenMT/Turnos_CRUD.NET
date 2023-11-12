@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Turnos.Models.Paciente>
+
+<h4>Pacientes</h4>
+
+<p> @*Esta etiqueta se utiliza para definir un parrafo*@
+    <a asp-action="Create">Crear Paciente</a> @*Esta etiqueta se utiliza para crear un enlace*@
+</p>
+
+<table> @*Esta etiqueta se utiliza para crear una tabla*@
+    <thead> @*Esta etiqueta se utiliza para definir El encabezado de una tabla*@
+        <tr> @*Esta etiqueta se utiliza para definir la columnas de una tabla*@
+            <th> @*Esta etiqueta se utiliza para definir las celdas de los encabezados de una tabla*@
+                @Html.DisplayNameFor(p => p.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(p=> p.Apellido)
+            </th>
+        </tr>
+    </thead>
+    <tbody> @*Esta etiqueta se utiliza para agupar los datos en una tabla*@
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem  => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPaciente">Editar</a>
+                <a asp-action="Detail" asp-route-id="@item.IdPaciente">Detalle</a>
+                <a asp-action="Delete" asp-route-id="@item.IdPaciente">Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

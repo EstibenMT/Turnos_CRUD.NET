@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Turnos.Models;
 
 namespace Turnos.Models
 {
@@ -10,8 +11,9 @@ namespace Turnos.Models
         
         }
 
-        public DbSet<Especialidad> Especialidades { get; set; }
-        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<Especialidad>? Especialidades { get; set; }
+        public DbSet<Paciente>? Pacientes { get; set; }
+        public DbSet<Medico>? Medico { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
@@ -59,6 +61,8 @@ namespace Turnos.Models
             }
             );
         }
+
+        
 
     }
 }

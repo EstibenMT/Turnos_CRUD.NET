@@ -15,15 +15,6 @@
             <th>
                 @Html.DisplayNameFor(p=> p.Apellido)
             </th>
-            <th>
-                @Html.DisplayNameFor(p=> p.Direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(p=> p.Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(p=> p.Email)
-            </th>
         </tr>
     </thead>
     <tbody> @*Esta etiqueta se utiliza para agupar los datos en una tabla*@
@@ -37,14 +28,6 @@
                 @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem=> item.Email)
-            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdPaciente">Editar</a>
                 <a asp-action="Detail" asp-route-id="@item.IdPaciente">Detalle</a>

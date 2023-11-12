@@ -19,7 +19,7 @@ namespace Turnos.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
             { 
@@ -97,9 +97,9 @@ namespace Turnos.Controllers
                 return NotFound();
             }
             var paciente = await _Context.Pacientes.FirstOrDefaultAsync(p => p.IdPaciente == id);
-            if (ModelState.IsValid)
+            if (paciente == null)
             {
-                return RedirectToAction(nameof(Delete));
+                return NotFound();
             }
             return View(paciente);
         }
@@ -122,7 +122,7 @@ namespace Turnos.Controllers
 
             _Context.Pacientes.Remove(paciente);
             await _Context.SaveChangesAsync();
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
         }
 

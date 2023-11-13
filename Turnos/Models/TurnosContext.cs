@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Turnos.Models;
 
 namespace Turnos.Models
 {
@@ -13,19 +12,21 @@ namespace Turnos.Models
         public DbSet<Especialidad> Especialidades { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Medico>? Medicos { get; set; }
+        public DbSet<MedicoEspecialidad> MedicoEspecialidades { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Especialidad>(entidad =>
             {
                 entidad.ToTable("Especialidades");
-                entidad.HasKey(e=>e.IdEspecialidad);
+                entidad.HasKey(e => e.IdEspecialidad);
 
                 entidad.Property(e => e.Descripcion)
                 .IsRequired()
                 .HasMaxLength(200)
                 .IsUnicode(false);
-            });
+            }
+            );
 
             modelBuilder.Entity<Paciente>(entidad =>
             {
@@ -65,7 +66,7 @@ namespace Turnos.Models
                 entidad.ToTable("Medicos");
                 entidad.HasKey(m => m.IdMedico);
 
-                entidad.Property(m => m.Name)
+                entidad.Property(m => m.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -95,14 +96,25 @@ namespace Turnos.Models
                 .IsUnicode(false);
 
                 entidad.Property(m => m.HorarioAtencionHasta)
-                .IsRequired()             
+                .IsRequired()
                 .IsUnicode(false);
-            });
+
+
+            }
+            );
+
+            modelBuilder.Entity<MedicoEspecialidad>().HasKey(x => new { x.IdMedico, x.IdEspecialidad });
+
+            modelBuilder.Entity<MedicoEspecialidad>()
+                .HasOne(x => x.Medico)                 // Establece la relación uno a uno con la entidad IdMedico
+                .WithMany(p => p.MedicosEspecialidad) // Indica que la entidad MedicoEspecialidad tiene una relación uno a muchos con p
+                .HasForeignKey(p => p.IdMedico);       // Define la clave foránea en la entidad MedicoEspecialidad, relacionada con IdMedico
+
+            modelBuilder.Entity<MedicoEspecialidad>()
+                .HasOne(x => x.Especialidad)
+                .WithMany(p => p.MedicoEspecialidad)
+                .HasForeignKey(p => p.IdEspecialidad);
+
         }
-
-        
-
-        
-
     }
 }

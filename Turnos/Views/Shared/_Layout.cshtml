@@ -50,7 +50,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="~/js/materialize.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @*@await RenderSectionAsync("Scripts", required: false)*@
+    @RenderSection("Scripts", required: false)
     <script>
         $(document).ready(function(){
             $('.sidenav').sidenav();

@@ -15,6 +15,29 @@
     </div>
 </div>
 <br/>
+
+<div id="ModalTurno" class="modal">
+    <div class="modal-content">
+        <h4>Turno</h4>
+        <form>
+            <div>
+                <label>Inicio</label>
+                <input type="text" id="txtFechaHoraInicio" readonly="readonly"/>
+            </div>
+            <div>
+                <label>Inicio</label>
+                <input type="text" id="txtFechaHoraFin" readonly="readonly"/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="btnEliminar" class="modal-close waves-effect waves-red btn-flat">Eliminar</a>
+        <a href="#" id="btnGuardar" class="modal-close waves-effect waves-green btn-flat">Guardar</a>
+        <a href="#" id="btnCerrar" class="modal-close waves-effect waves-grey btn-flat">Cerrar</a>
+    </div>
+</div>
+
+
 <div id="CalendarioTurnos"></div>
 <link href="~/fullcalendar/fullcalendar.css" rel="stylesheet"/>
 <link href="~/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print"/>
@@ -24,18 +47,24 @@
     <script src="~/fullcalendar/locale/es.js"></script>
     <script>
         $(document).ready(function(){
+            $('.modal').modal(); //Para que fincionen los eventos show y hide del modal
             var horarioDesde = "";
             var horarioHasta = "";
             var turnos =[];
-            
-            ObtenerTurnosYActualizar($('#IdMedico').val());
+            var turnoSeleccionado=[];
 
+            ObtenerTurnosYActualizar($('#IdMedico').val())
+
+            $('#IdMedico').change(function(){
+                ObtenerTurnosYActualizar(this.value);
+            });
+            
             function ObtenerTurnosYActualizar(idMedico){
                 turnos = [];
                 $.ajax({
                     type: "GET",
                     url: "Turno/ObtetenerTurnos",
-                    data: {'IdMedico': idMedico},
+                    data: { 'IdMedico': idMedico },
                     success: function(datos){
                         $.each(datos, function(i, v){
                             //poner las iniciales en minusculas
@@ -45,43 +74,41 @@
                                 idMedico: v.idMedico,
                                 start: moment(v.fechaHoraInicio),
                                 end: v.fechaHoraFin != null ? moment(v.fechaHoraFin):null,
-
                             });
                         })
                         GenerarCalendario(turnos);
                     },
                     error: function(){
                         alert('Error al obtener turnos.');
-                    }
+                    }                        
                 })
             }
 
             function GenerarCalendario(turnos) {
-
                 $.ajax({
                     type: "GET",
                     url: "Medico/TraerHorarioAtencionDesde",
-                    data: {"idMedico": $('#IdMedico').val()},
+                    data: { "idMedico": $('#IdMedico').val() },
                     async: false,
                     success: function (resultado){
-                        horarioDesde = resultado
+                        horarioDesde = resultado;
                     },
                     error: function(){
-                        alert("Error al traer el horario de atencion desde")
-                    }
+                        alert("Error al traer el horario de atencion desde");
+                    }            
                 });
 
                 $.ajax({
                     type: "GET",
                     url: "Medico/TraerHorarioAtencionHasta",
-                    data: {"idMedico": $('#IdMedico').val()},
+                    data: { "idMedico": $('#IdMedico').val() },
                     async: false,
                     success: function (resultado){
-                        horarioHasta = resultado
+                        horarioHasta = resultado;
                     },
                     error: function(){
-                        alert("Error al traer el horario de atencion hasta")
-                    }
+                        alert("Error al traer el horario de atencion hasta");
+                    }            
                 });
 
                 $('#CalendarioTurnos').fullCalendar('destroy');
@@ -97,14 +124,85 @@
                     },
                     slotDuration: '00:30',
                     nowIndicator: true,
-                    allDayslot: false,
+                    allDaySlot: false,
                     selectable: true,
                     eventLimit: true,
                     minTime: horarioDesde,
                     maxTime: horarioHasta,
                     events: turnos,
+                    select: function(fechaHoraInicio, fechaHoraFin){
+                        turnoSeleccionado ={
+                            idTurno: 0,
+                            start: fechaHoraInicio,
+                            end: fechaHoraFin
+                        };
+                        AbrirPopup();
+                    },
+                    eventClick: function(turnoClickeado){
+                        turnoSeleccionado=turnoClickeado;
+                        AbrirPopup();
+                    }
+
                 })
             }
+
+            function AbrirPopup()
+            {
+                $('#txtFechaHoraInicio').val(turnoSeleccionado.start.format('DD/MM/YY HH:mm'));
+                $('#txtFechaHoraFin').val(turnoSeleccionado.end.format('DD/MM/YY HH:mm'));
+                if(turnoSeleccionado.idTurno==0){
+                    $('#btnGuardar').show();
+                    $('#btnEliminar').hide();
+                }else{
+                    $('#btnGuardar').hide();
+                    $('#btnEliminar').show();                    
+                }
+                $('#ModalTurno').modal('open');
+            }
+
+            $('#btnGuardar').click(function(){
+                var datosDelTurno = {
+                    IdPaciente: $('#IdPaciente').val(),
+                    IdMedico: $('#IdMedico').val(),
+                    FechaHoraInicio: $('#txtFechaHoraInicio').val(),
+                    FechaHoraFin: $('#txtFechaHoraFin').val()
+                }
+                GrabarTurno(datosDelTurno);
+            })
+            
+            function GrabarTurno(data){
+                $.ajax({
+                    type: "POST",
+                    url: 'Turno/GrabarTurno',
+                    data: {'turno': data},
+                    success: function(e){
+                        if(e.ok){
+                            ObtenerTurnosYActualizar($('#IdMedico').val());
+                        }
+                    },
+                    error: function(){
+                        alert('Error al grabar turno');
+                    }
+                })
+            }
+
+            $('#btnEliminar').click(function(){
+                if(confirm('¿Esta seguro de eliminar el turno?')){
+                    $.ajax({
+                        type: "POST",
+                        url: 'Turno/EliminarTruno',
+                        data: {'IdTurno': turnoSeleccionado.idTurno},
+                        success: function(e){
+                            if(e.ok){
+                                ObtenerTurnosYActualizar($('#IdMedico').val());
+                            }
+                        },
+                        error: function(){
+                            alert('Error al eliminar turno');
+                        }
+                    })               
+                }
+            })
         })
     </script>
 }

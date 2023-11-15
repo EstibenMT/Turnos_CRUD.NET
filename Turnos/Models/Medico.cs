@@ -44,7 +44,7 @@ namespace Turnos.Models
         [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime HorarioAtencionHasta { get; set; }
 
-        public LinkedList<MedicoEspecialidad>? MedicosEspecialidad { get; set; }
+        public List<MedicoEspecialidad>? MedicosEspecialidad { get; set; }
         public List<Turno>? Turno { get; set; }
     }
 }

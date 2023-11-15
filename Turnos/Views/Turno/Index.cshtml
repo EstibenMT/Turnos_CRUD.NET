@@ -25,8 +25,12 @@
                 <input type="text" id="txtFechaHoraInicio" readonly="readonly"/>
             </div>
             <div>
-                <label>Inicio</label>
+                <label>Fin</label>
                 <input type="text" id="txtFechaHoraFin" readonly="readonly"/>
+            </div>
+            <div>
+                <label>Paciente</label>
+                <input type="text" id="txtPaciente" readonly="readonly"/>
             </div>
         </form>
     </div>
@@ -41,9 +45,10 @@
 <div id="CalendarioTurnos"></div>
 <link href="~/fullcalendar/fullcalendar.css" rel="stylesheet"/>
 <link href="~/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print"/>
+
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="~/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/fullcalendar/fullcalendar.min.js" ></script>
     <script src="~/fullcalendar/locale/es.js"></script>
     <script>
         $(document).ready(function(){
@@ -51,6 +56,7 @@
             var horarioDesde = "";
             var horarioHasta = "";
             var turnos =[];
+            var fechas=[];
             var turnoSeleccionado=[];
 
             ObtenerTurnosYActualizar($('#IdMedico').val())
@@ -74,13 +80,15 @@
                                 idMedico: v.idMedico,
                                 start: moment(v.fechaHoraInicio),
                                 end: v.fechaHoraFin != null ? moment(v.fechaHoraFin):null,
+                                paciente: v.paciente,
                             });
                         })
+                        console.log(turnos);
                         GenerarCalendario(turnos);
                     },
                     error: function(){
                         alert('Error al obtener turnos.');
-                    }                        
+                    }                       
                 })
             }
 
@@ -114,6 +122,7 @@
                 $('#CalendarioTurnos').fullCalendar('destroy');
 
                 $('#CalendarioTurnos').fullCalendar({
+                    
                     contentHeight: 'auto',
                     defaultDate: new Date(),
                     slotLabelFormat: "HH:mm",
@@ -153,9 +162,11 @@
                 if(turnoSeleccionado.idTurno==0){
                     $('#btnGuardar').show();
                     $('#btnEliminar').hide();
+                    $('#txtPaciente').val($('#IdPaciente option:selected').text());
                 }else{
                     $('#btnGuardar').hide();
-                    $('#btnEliminar').show();                    
+                    $('#btnEliminar').show();
+                    $('#txtPaciente').val(turnoSeleccionado.paciente);
                 }
                 $('#ModalTurno').modal('open');
             }

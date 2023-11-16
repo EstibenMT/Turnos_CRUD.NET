@@ -1,39 +1,52 @@
 ﻿@model IEnumerable<Turnos.Models.Paciente>
+@{
+    ViewBag.Title = "Listado de pacientes";
+}
 
-<h4>Pacientes</h4>
-
-<p> @*Esta etiqueta se utiliza para definir un parrafo*@
-    <a asp-action="Create">Crear Paciente</a> @*Esta etiqueta se utiliza para crear un enlace*@
-</p>
-
-<table> @*Esta etiqueta se utiliza para crear una tabla*@
-    <thead> @*Esta etiqueta se utiliza para definir El encabezado de una tabla*@
-        <tr> @*Esta etiqueta se utiliza para definir la columnas de una tabla*@
-            <th> @*Esta etiqueta se utiliza para definir las celdas de los encabezados de una tabla*@
-                @Html.DisplayNameFor(p => p.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(p=> p.Apellido)
-            </th>
-        </tr>
-    </thead>
-    <tbody> @*Esta etiqueta se utiliza para agupar los datos en una tabla*@
-        @foreach(var item in Model)
-        {
+<div class="container ">
+    <div>
+        <h4>Pacientes</h4>
+        <hr/>
+    </div>
+    <div>
+        <a asp-action="Create" class="btn-floating btn-large green darken-4 z-depth-3"><i class="material-icons">person_add</i></a>
+    </div>
+    <br/>
+    <table class="highlight centered z-depth-5">
+      <thead class="black white-text">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem  => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPaciente">Editar</a>
-                <a asp-action="Detail" asp-route-id="@item.IdPaciente">Detalle</a>
-                <a asp-action="Delete" asp-route-id="@item.IdPaciente">Eliminar</a>
-            </td>
+          <th class="col s2">@Html.DisplayNameFor(model => model.Nombre)</th>
+          <th class="col s4">@Html.DisplayNameFor(model => model.Apellido)</th>
+          <th class="col s6">Opciones</th>
         </tr>
-        }
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+          @foreach (var item in Model) {
+            
+              <tr>
+                  <td>
+                      @Html.DisplayFor(modelItem => item.Nombre)
+                  </td>
+                  <td>
+                      @Html.DisplayFor(modelItem => item.Apellido)
+                  </td>
+                  <td>
+                    <div class="container  col s6">
+                        <div class="row">
+                            <div class="col s2 offset-s3">
+                                <a asp-action="Edit" asp-route-id="@item.IdPaciente"><i class="material-icons blue-text darken-4">edit</i></a>
+                            </div>
+                            <div class="col s2">
+                                <a asp-action="Detail" asp-route-id="@item.IdPaciente"><i class="material-icons black-text">plagiarism</i></a>
+                            </div>
+                            <div class="col s2">
+                                <a asp-action="Delete" asp-route-id="@item.IdPaciente"><i class="material-icons red-text accent-1">delete</i></a>
+                            </div>
+                        </div>
+                    </div>
+                  </td>
+              </tr>
+          }
+      </tbody>
+    </table>
+</div>

@@ -1,33 +1,46 @@
 ﻿
 @model IEnumerable<Turnos.Models.Especialidad>
 
-
-<h4>Especialidades</h4>
-<p>
-    <a asp-action="Create">Crear especialidad</a>
-</p>
-
-<table>
-    <thead>
+@{
+    ViewBag.Title = "Listado de especialidades";
+}
+<div class="container ">
+    <div>
+        <h4>Medicos</h4>
+        <hr />
+    </div>
+    <div>
+        <a asp-action="Create" class="btn-floating btn-large green darken-4 z-depth-3"><i class="material-icons">add</i></a>
+    </div>
+    <br/>
+    <table class="highlight centered z-depth-5">
+      <thead class="black white-text">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
+          <th class="col s2">@Html.DisplayNameFor(model => model.Descripcion)</th>
+          <th class="col s6">Opciones</th>
         </tr>
-    </thead>
-    <tbody>
-        @*Aqui colocamos mas adelante los registros de la db*@
-        @foreach(var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdEspecialidad">Editar</a>
-                <a asp-action="Delete" asp-route-id="@item.IdEspecialidad">Eliminar</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+          @foreach (var item in Model) {
+            
+              <tr>
+                  <td>
+                      @Html.DisplayFor(modelItem => item.Descripcion)
+                  </td>
+                  <td>
+                    <div class="container  col s6">
+                        <div class="row">
+                            <div class="col s2 offset-s4">
+                                <a asp-action="Edit" asp-route-id="@item.IdEspecialidad"><i class="material-icons blue-text darken-4">edit</i></a>
+                            </div>
+                            <div class="col s2">
+                                <a asp-action="Delete" asp-route-id="@item.IdEspecialidad"><i class="material-icons red-text accent-1">delete</i></a>
+                            </div>
+                        </div>
+                    </div>
+                  </td>
+              </tr>
+          }
+      </tbody>
+    </table>
+</div>

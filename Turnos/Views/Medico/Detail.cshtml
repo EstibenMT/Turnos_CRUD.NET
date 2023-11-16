@@ -1,8 +1,8 @@
 ﻿@model Turnos.Models.Medico
 @{
-    ViewBag.Title = "Eliminar medico";
+    ViewBag.Title = "Medico";
 }
-<h4>¿Está seguro de eliminar el siguiente registro?</h4>
+<h4>Medico</h4>
 <hr />
 <div class="row">
     <div class="row z-depth-5">
@@ -95,11 +95,7 @@
                 </div>
                 <div class="row">
                     <div class="col s2 m2 offset-s8">
-                        <form asp-action="Delete">
-                            <input type="hidden" asp-for="IdMedico" />
-                            <button class="btn waves-effect waves-light btn red darken-4" type="submit" name="action">Eliminar<i class="material-icons right">delete</i>
-                            </button>                            
-                        </form>
+                        <a asp-action="Edit" class="waves-effect waves-light btn blue darken-4"><i class="material-icons right">edit</i>Editar</a>
                     </div>
                     <div class="col s2 m2">
                         <a asp-action="Index" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">undo</i>Regresar</a>
@@ -109,3 +105,4 @@
         </div>
     </div>
 </div>
+

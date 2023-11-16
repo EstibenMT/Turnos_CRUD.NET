@@ -5,13 +5,25 @@
 }
 
 <div class="row">
-    <div class="col s6">
-        <label asp-for="IdMedico">Medico</label>
-        <select asp-for="IdMedico" asp-items="ViewBag.IdMedico"></select>
+    <div class="input-field col s6">
+        <div>
+            <div>
+                <label asp-for="IdMedico">Medico</label>
+            </div>
+            <div>
+                <select asp-for="IdMedico" asp-items="ViewBag.IdMedico"></select>
+            </div>
+        </div>      
     </div>
-        <div class="col s6">
-        <label asp-for="IdPaciente">Paciente</label>
-        <select asp-for="IdPaciente" asp-items="ViewBag.IdPaciente"></select>
+    <div class="input-field col s6">
+        <div>
+            <div>
+                <label asp-for="IdPaciente">Paciente</label>
+            </div>
+            <div>
+                <select asp-for="IdPaciente" asp-items="ViewBag.IdPaciente"></select>
+            </div>
+        </div>
     </div>
 </div>
 <br/>
@@ -150,8 +162,11 @@
                     eventClick: function(turnoClickeado){
                         turnoSeleccionado=turnoClickeado;
                         AbrirPopup();
+                    },
+                    viewRender: function(view, element) {
+                      var mesActual = view.title;
+                      $('.fc-center').text(mesActual);
                     }
-
                 })
             }
 

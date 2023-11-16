@@ -1,20 +1,37 @@
 ﻿@model Turnos.Models.Especialidad
-
-<h3>¿Esta seguro de eliminar el siguinete registro?</h3>
-<div>
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-    </dl>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdEspecialidad"/>
-        <input type="submit" value="Eliminar"/>
-    </form>
-    <div>
-        <a asp-action="Index">Regresar</a>
+@{
+    ViewBag.Title = "Eliminar medico";
+}
+<h4>¿Está seguro de eliminar el siguiente registro?</h4>
+<hr />
+<div class="row">
+    <div class="row z-depth-5">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">star_rate</i>
+                    </div>                            
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Descripcion)</p>  
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col s2 m2 offset-s8">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="IdEspecialidad" />
+                        <button class="btn waves-effect waves-light btn red darken-4" type="submit" name="action">Eliminar<i class="material-icons right">delete</i>
+                        </button>                            
+                    </form>
+                </div>
+                <div class="col s2 m2">
+                    <a asp-action="Index" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">undo</i>Regresar</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

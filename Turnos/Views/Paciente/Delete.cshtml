@@ -1,45 +1,80 @@
 ﻿@model Turnos.Models.Paciente
+@{
+    ViewBag.Title = "Paciente";
+}
 
-<h3>¿Está seguro de eliminar el siguiente registro?</h3>
-<div>
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdPaciente" />
-        <input type="submit" value="Eliminar"/>
-    </form>
-    <div>
-        <a asp-action="Index">Regresar</a>
+<h4>¿Está seguro de eliminar el siguiente registro?</h4>
+<hr />
+<div class="row">
+    <div class="row z-depth-5">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">account_circle</i>
+                    </div>                            
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Nombre)</p>  
+                    </div>
+                </div>
+                <div class="input-field col s6"> 
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Apellido)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Apellido)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">markunread_mailbox</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Direccion)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Direccion)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">phone</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Telefono)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Telefono)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">local_post_office</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Email)</p>                                
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 m2 offset-s8">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="IdPaciente" />
+                        <button class="btn waves-effect waves-light btn red darken-4" type="submit" name="action">Eliminar<i class="material-icons right">delete</i>
+                        </button>                            
+                    </form>
+                </div>
+                <div class="col s2 m2">
+                    <a asp-action="Index" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">undo</i>Regresar</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

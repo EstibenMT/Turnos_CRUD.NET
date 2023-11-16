@@ -1,7 +1,9 @@
 ﻿@model Turnos.Models.Medico
-
+@{
+    ViewBag.Title = "Medico";
+}
 <h4>Medico</h4>
-<hr />
+<hr/>
 <div class="row">
     <div>
         <form class="col s12" asp-action="Create">
@@ -54,13 +56,14 @@
                 <i class="material-icons prefix">star_rate</i>
                 <select name="IdEspecialidad"  asp-items="ViewBag.ListaEspecialidades"></select>
             </div>
+
             <div class="row">
-                <div class="form-group col s6 m6">
+                <div class="form-group col s2 m2 offset-s8">
                     <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
                       <i class="material-icons right">send</i>
                     </button>
                 </div>
-                <div class="col s6 m6">
+                <div class="col s2 m2">
                     <a asp-action="Index" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">undo</i>button</a>
                 </div>
             </div>

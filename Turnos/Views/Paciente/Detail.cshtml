@@ -1,41 +1,75 @@
 ﻿@model Turnos.Models.Paciente
 
+@{
+    ViewBag.Title = "Paciente";
+}
 <h4>Paciente</h4>
-<div>
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(p=>p.Nombre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(p=>p.Nombre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(p=>p.Apellido)
-        </dt>
-        <dd>
-            @Html.DisplayFor(p=>p.Apellido)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(p=>p.Direccion)
-        </dt>
-        <dd>
-            @Html.DisplayFor(p=>p.Direccion)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(p=>p.Telefono)
-        </dt>
-        <dd>
-            @Html.DisplayFor(p=>p.Telefono)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(p=>p.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(p=>p.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Regresar</a> |
-    <a asp-action="Edit" asp-route-id="@Model.IdPaciente">Editar</a>
+<hr />
+<div class="row">
+    <div class="row z-depth-5">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">account_circle</i>
+                    </div>                            
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Nombre)</p>  
+                    </div>
+                </div>
+                <div class="input-field col s6"> 
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Apellido)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Apellido)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">markunread_mailbox</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Direccion)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Direccion)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">phone</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Telefono)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Telefono)</p>                                
+                    </div>
+                </div>
+                <div class="input-field col s6">
+                    <div class="col s2">
+                        <i class="material-icons prefix">local_post_office</i>
+                    </div>  
+                    <div class="col s10" >
+                        <h5>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </h5>
+                        <p>@Html.DisplayFor(model => model.Email)</p>                                
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 m2 offset-s8">
+                    <a asp-action="Edit" asp-route-id="@Model.IdPaciente" class="waves-effect waves-light btn blue darken-4"><i class="material-icons right">edit</i>Editar</a>
+                </div>
+                <div class="col s2 m2">
+                    <a asp-action="Index" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">undo</i>Regresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
